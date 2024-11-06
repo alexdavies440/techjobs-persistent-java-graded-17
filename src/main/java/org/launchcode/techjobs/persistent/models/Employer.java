@@ -15,6 +15,7 @@ public class Employer extends AbstractEntity {
     public Employer() {}
 
     public Employer(String location) {
+        super();
         this.location = location;
     }
 
@@ -25,4 +26,5 @@ public class Employer extends AbstractEntity {
     public void setLocation(@NotEmpty(message = "Location required") @Size(min = 2, max = 100) String location) {
         this.location = location;
     }
+
 }
