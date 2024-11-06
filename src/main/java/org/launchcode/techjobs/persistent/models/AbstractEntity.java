@@ -18,7 +18,7 @@ public abstract class AbstractEntity {
     private int id;
 
     @NotBlank(message = "Name fields cannot be left blank")
-    @Size(min = 1, max = 160)
+    @Size(max = 160, message = "Name field cannot exceed 160 characters")
     private String name;
 
     public int getId() {
