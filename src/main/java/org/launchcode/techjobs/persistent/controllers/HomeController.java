@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.hibernate.sql.results.graph.embeddable.EmbeddableLoadingLogger;
 import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
+import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.launchcode.techjobs.persistent.models.data.JobRepository;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
@@ -68,6 +69,8 @@ public class HomeController {
         // Does same as above but in case of error in PostMapping so options don't disappear on reload
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
+        model.addAttribute("employerId", employerId);
+//        model.addAttribute("job", newJob);
 
 
         if (errors.hasErrors()) {
@@ -82,10 +85,11 @@ public class HomeController {
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
-        Optional optJob = jobRepository.findById(jobId);
+        Optional<Job> optJob = jobRepository.findById(jobId);
         if (optJob.isPresent()) {
             Job job = (Job) optJob.get();
             model.addAttribute("job", job);
+
             return "view";
         } else {
             return "redirect:";
