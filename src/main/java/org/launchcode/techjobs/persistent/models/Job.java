@@ -12,6 +12,8 @@ public class Job extends AbstractEntity {
 
     @ManyToOne
 //    @NotNull(message = "A job must have an employer")
+
+    // Is Employer being properly linked to Job?
     private Employer employer;
 
     @ManyToMany
