@@ -15,6 +15,7 @@ public class Job extends AbstractEntity {
     @ManyToOne
     @NotNull(message = "A job must have an employer")
     private Employer employer;
+
     private String skills;
 
 

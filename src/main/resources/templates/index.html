@@ -8,6 +8,7 @@
 
 <div class="container body-content">
     <h2>TechJobs</h2>
+<!--    Displays list of jobs as links. Each link returns a view.html template followed by the job ID. Where do the jobs come from though?-->
     <ul>
         <li th:each="job : ${jobs}">
             <a th:href="@{'/view/' + ${job.id}}" th:text="${job.name}"></a>
