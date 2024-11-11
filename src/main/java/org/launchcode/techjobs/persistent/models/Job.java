@@ -2,7 +2,6 @@ package org.launchcode.techjobs.persistent.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +10,6 @@ import java.util.List;
 public class Job extends AbstractEntity {
 
     @ManyToOne
-//    @NotNull(message = "A job must have an employer")
-
-    // Is Employer being properly linked to Job?
     private Employer employer;
 
     @ManyToMany

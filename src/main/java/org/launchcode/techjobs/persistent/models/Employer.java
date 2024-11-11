@@ -1,6 +1,5 @@
 package org.launchcode.techjobs.persistent.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -20,7 +19,7 @@ public class Employer extends AbstractEntity {
 
     @OneToMany
     @JoinColumn(name = "employer_id")
-    // Consider whether this field should be final or not, if so get rid of setter
+
     private List<Job> jobs = new ArrayList<>();
 
     public Employer() {}
