@@ -37,7 +37,7 @@ public class HomeController {
     public String index(Model model) {
 
         model.addAttribute("title", "MyJobs");
-        model.addAttribute("jobs", jobRepository.findAll());
+//        model.addAttribute("jobs", jobRepository.findAll());
 
 
 
@@ -61,8 +61,8 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob, Errors errors,
-                                    Model model, @RequestParam int employerId) {
-        // @ModelAttribute here tells Spring to link attributes like name, skill, employer
+                                    Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+        // @ModelAttribute here tells Spring to link attributes like name
         // to the corresponding fields in the Job model so we don't have to explicitly link each one
         // RequestParam is collected from a user input form
 
@@ -70,14 +70,25 @@ public class HomeController {
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute("employerId", employerId);
-//        model.addAttribute("job", newJob);
-
 
         if (errors.hasErrors()) {
             return "add";
         }
 
-        jobRepository.save(newJob);
+        // Takes employerId input from user and uses it to search employerRepository
+        // and then sets employer for newJob to the corresponding Employer
+        Optional<Employer> optEmployer = employerRepository.findById(employerId);
+
+        if (optEmployer.isPresent()) {
+            Employer employer = (Employer) optEmployer.get();
+            newJob.setEmployer(employer);
+            model.addAttribute("employer", employer);
+        }
+
+        // Captures List of checked skills from user as skill ids and interates
+        // through the list and assigns corresponding skills to newJob
+        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+        newJob.setSkills(skillObjs);
 
         return "redirect:";
     }
@@ -85,16 +96,8 @@ public class HomeController {
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
-        Optional<Job> optJob = jobRepository.findById(jobId);
-        if (optJob.isPresent()) {
-            Job job = (Job) optJob.get();
-            model.addAttribute("job", job);
-
-            return "view";
-        } else {
-            return "redirect:";
-        }
-
+        return "view";
     }
+
 
 }
