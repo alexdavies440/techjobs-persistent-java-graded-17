@@ -11,7 +11,7 @@ import java.util.List;
 public class Job extends AbstractEntity {
 
     @ManyToOne
-    @NotNull(message = "A job must have an employer")
+//    @NotNull(message = "A job must have an employer")
     private Employer employer;
 
     @ManyToMany
