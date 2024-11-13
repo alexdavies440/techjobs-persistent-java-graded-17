@@ -55,6 +55,11 @@ p {
     margin-right: auto;
 }
 
+.table-column {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 div.job-listing {
     border: 1px solid #e4e4e4;
     width: 80%;

@@ -24,11 +24,11 @@ public class Skill extends AbstractEntity {
         this.description = description;
     }
 
-    public @Size(max = 800, message = "Character limit of 800 reached. Consider a more concise job description") String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(@Size(max = 800, message = "Character limit of 800 reached. Consider a more concise job description") String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

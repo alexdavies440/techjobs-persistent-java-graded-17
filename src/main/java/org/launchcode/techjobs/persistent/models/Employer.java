@@ -14,7 +14,7 @@ import java.util.List;
 public class Employer extends AbstractEntity {
 
     @NotBlank(message = "Location required")
-    @Size(min = 2, max = 100)
+    @Size(max = 100, message = "Location cannot exceed 100 characters")
     private String location;
 
     // One Employer to many jobs, needs JoinColumn so it knows how and to which jobs to relate this field
@@ -29,11 +29,11 @@ public class Employer extends AbstractEntity {
         this.location = location;
     }
 
-    public @NotEmpty(message = "Location required") @Size(min = 2, max = 100) String getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(@NotEmpty(message = "Location required") @Size(min = 2, max = 100) String location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
