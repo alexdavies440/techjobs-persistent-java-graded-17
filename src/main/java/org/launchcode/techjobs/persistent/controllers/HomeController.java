@@ -74,7 +74,7 @@ public class HomeController {
         }
 
         // Checks if user selected skills, if not, skills won't be present
-        // which would otherwise crash the page. If present,
+        // which would otherwise crash the page, returns "add" instead. If present,
         // captures List of checked skills from user as skill ids and interates
         // through the list and assigns corresponding skills to newJob
         Optional<List<Integer>> optSkills = Optional.ofNullable(skills);
