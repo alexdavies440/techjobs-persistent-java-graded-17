@@ -76,11 +76,14 @@ public class HomeController {
         // Takes employerId input from user and uses it to search employerRepository
         // and then sets employer for newJob to the corresponding Employer
         Optional<Employer> optEmployer = employerRepository.findById(employerId);
+        // .orElse() method
 
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             newJob.setEmployer(employer);
             model.addAttribute("employer", employer);
+        } else {
+            optEmployer.orElse(new Employer());
         }
 
         // Captures List of checked skills from user as skill ids and interates
@@ -101,10 +104,9 @@ public class HomeController {
         if(optJob.isPresent()) {
             Job job = (Job) optJob.get();
             model.addAttribute("job", job);
+            return "view";
+        } else {
+            return "redirect:..";
         }
-
-        return "view";
     }
-
-
 }
