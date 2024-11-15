@@ -59,7 +59,7 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob, Errors errors,
-                                    Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+                                    Model model, @RequestParam int employerId,@RequestParam(required = false) List<Integer> skills) {
         // @ModelAttribute here tells Spring to link attributes like name
         // to the corresponding fields in the Job model so we don't have to explicitly link each one
         // RequestParam is collected from a user input form
@@ -70,6 +70,11 @@ public class HomeController {
         model.addAttribute("employerId", employerId);
 
         if (errors.hasErrors()) {
+            return "add";
+        }
+
+        Optional<List<Integer>> optSkills = Optional.ofNullable(skills);
+        if (!optSkills.isPresent()) {
             return "add";
         }
 
@@ -88,7 +93,9 @@ public class HomeController {
 
         // Captures List of checked skills from user as skill ids and interates
         // through the list and assigns corresponding skills to newJob
+
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+
         newJob.setSkills(skillObjs);
 
         jobRepository.save(newJob);
