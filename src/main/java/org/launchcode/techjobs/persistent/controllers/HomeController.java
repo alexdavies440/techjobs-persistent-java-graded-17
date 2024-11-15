@@ -73,9 +73,16 @@ public class HomeController {
             return "add";
         }
 
+        // Checks if user selected skills, if not, skills won't be present
+        // which would otherwise crash the page. If present,
+        // captures List of checked skills from user as skill ids and interates
+        // through the list and assigns corresponding skills to newJob
         Optional<List<Integer>> optSkills = Optional.ofNullable(skills);
         if (!optSkills.isPresent()) {
             return "add";
+        } else {
+            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+            newJob.setSkills(skillObjs);
         }
 
         // Takes employerId input from user and uses it to search employerRepository
@@ -90,13 +97,6 @@ public class HomeController {
         } else {
             optEmployer.orElse(new Employer());
         }
-
-        // Captures List of checked skills from user as skill ids and interates
-        // through the list and assigns corresponding skills to newJob
-
-        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-
-        newJob.setSkills(skillObjs);
 
         jobRepository.save(newJob);
 
